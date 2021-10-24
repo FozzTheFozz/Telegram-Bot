@@ -1,21 +1,27 @@
-from telegram.ext import Updater
 import logging
 from telegram.ext import CommandHandler, MessageHandler, Filters
-from telegram.ext import CallbackContext
-from telegram import *
+from telegram.ext import CallbackContext, Updater
+from telegram import Update
+import telegram.ext as telegramext 
 from html import escape
-import pickledb
+import requests
+import re
 """
 This is a shitty Python telegram bot!
 The available commands are:
 /start
 /ban
-help
+/kitty
+/help
 /rules
 """
-updater = Updater(token='Enter your token here', use_context=True)
+updater = Updater(token='TOKEN', use_context=True)
 dispatcher = updater.dispatcher
-logging.basicConfig(format='(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(
+    format='%(asctime)s – %(levelname)s – %(message)s',
+    datefmt='%m/%d/%Y %I:%M:%S %p',
+    level=logging.INFO
+)
 
 
 def start(update: Update, context: CallbackContext) -> None:
@@ -39,7 +45,12 @@ def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
     context.bot.send_message(chat_id=update.effective_chat.id,text='<b>Have a look at here</b> <a href="http://google.com">Here!</a>', parse_mode=ParseMode.HTML)
 
+def send_cat(update: Update, context: CallbackContext) -> None:
+    update.message.reply_photo("http://placekitten.com/720/450")
 
+
+kitty = CommandHandler('kitty',send_cat)
+dispatcher.add_handler(kitty)
 help = CommandHandler('help', help_command)
 dispatcher.add_handler(help)
 add_group = MessageHandler(Filters.status_update.new_chat_members, add_group)
@@ -52,3 +63,4 @@ start = CommandHandler('start', start)
 dispatcher.add_handler(start)
 # To start the bot run:
 updater.start_polling()
+logging.info('Bot has started')
