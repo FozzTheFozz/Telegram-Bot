@@ -3,6 +3,7 @@ from telegram.ext import CommandHandler, MessageHandler, Filters
 from telegram.ext import CallbackContext, Updater
 import telegram.ext as telegramext 
 from html import escape
+from telegram import Update
 """
 This is a shitty Python telegram bot!
 The available commands are:
