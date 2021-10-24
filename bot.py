@@ -1,7 +1,6 @@
 import logging
 from telegram.ext import CommandHandler, MessageHandler, Filters
 from telegram.ext import CallbackContext, Updater
-from telegram import Update
 import telegram.ext as telegramext 
 from html import escape
 """
