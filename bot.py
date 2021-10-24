@@ -4,8 +4,6 @@ from telegram.ext import CallbackContext, Updater
 from telegram import Update
 import telegram.ext as telegramext 
 from html import escape
-import requests
-import re
 """
 This is a shitty Python telegram bot!
 The available commands are:
